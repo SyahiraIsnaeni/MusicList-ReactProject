@@ -77,7 +77,7 @@ const Login = () => {
 
     return (
         <div className="row" style={{ backgroundColor: 'black', fontFamily: 'Arial, sans-serif', padding: '165px'}}>
-            <div className="offset-lg-3 col-lg-6" style={{ marginTop: '30px' }}>
+            <div className="offset-lg-3 col-lg-6" style={{ marginTop: '20px' }}>
                 <form onSubmit={ProceedLogin} className="container" style={{ background: '#FFFFF0', padding: '20px', borderRadius: '8px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
                     <div className="card">
                         <div className="card-header" style={{ background: 'gray' }}>
