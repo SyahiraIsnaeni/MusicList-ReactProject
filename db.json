@@ -1,0 +1,16 @@
+{
+  "user": [
+    {
+      "id": "syahiraisnaeni",
+      "name": "Syahira Isnaeni Dewi",
+      "password": "syahira123",
+      "email": "syahira@gmail.com"
+    },
+    {
+      "id": "khanuunmld",
+      "name": "Khanuun Maulida",
+      "password": "khanuun123",
+      "email": "khanuun@gmail.com"
+    }
+  ]
+}
