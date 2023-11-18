@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useMusicContext } from './MusicContext';
 
 const Home = () => {
-  const [query, setQuery] = useState("bite me"); // Set default query
+  const { updateMusicData } = useMusicContext();
+  const [query, setQuery] = useState('bite me'); // Set default query
   const [container, setContainer] = useState([]);
-  const [endPoint, setEndPoint] = useState("");
+  const [endPoint, setEndPoint] = useState('');
   const navigate = useNavigate();
 
   const fetchData = async () => {
     const url = `https://shazam.p.rapidapi.com/search?term=${query}`;
     const options = {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "X-RapidAPI-Key": "7fbf449755mshda9343543ee4455p1444bejsn69b45c8405f2",
-        "X-RapidAPI-Host": "shazam.p.rapidapi.com",
+        'X-RapidAPI-Key': '7fbf449755mshda9343543ee4455p1444bejsn69b45c8405f2',
+        'X-RapidAPI-Host': 'shazam.p.rapidapi.com',
       },
     };
 
@@ -29,6 +31,7 @@ const Home = () => {
         // Ambil data yang Anda inginkan dari properti "hits" di dalam "tracks"
         const hits = data.tracks.hits;
         setContainer(hits);
+        updateMusicData(hits);
         console.log(hits);
       } else {
         console.error('Properti "tracks" tidak ditemukan dalam respons API.');
@@ -60,37 +63,45 @@ const Home = () => {
 
   return (
     <div>
-      <h1 class="font-bold text-center mt-8">Music List Kelompok 18</h1>
+      <h1 className="font-bold text-center mt-8">Music List Kelompok 18</h1>
       <form onSubmit={onSubmitHandler}>
-        <div class="ml-10 mt-8">
-          <h5 class="font-bold">Cari Judul Lagu</h5>
+        <div className="ml-10 mt-8">
+          <h5 className="font-bold">Cari Judul Lagu</h5>
           <input
             type="text"
             value={query}
             onChange={onChangeHandler}
             placeholder=" Masukkan Judul Lagu"
-            class="border-2 border-slate-600 rounded-md placeholder:text-sm"
+            className="border-2 border-slate-600 rounded-md placeholder:text-sm"
           />
           <button
             type="submit"
-            class="ml-3 border-2 p-1 px-2 rounded-md bg-black text-white hover:border-slate-600 text-sm hover:bg-white hover:text-black transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-105 duration-300"
+            className="ml-3 border-2 p-1 px-2 rounded-md bg-black text-white hover:border-slate-600 text-sm hover:bg-white hover:text-black transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-105 duration-300"
           >
             Search
           </button>
         </div>
       </form>
 
-      {container.map((item) => {
-        return (
-          <div class="mt-4 ml-6" key={item.track.id}>
-            <div class="w-[200px] h-[300px] rounded-lg float-left border-2 shadow-lg overflow-hidden ml-3">
-              <img src={item.track.share.image} alt={item.track.title}></img>
-              <h5 class="text-center px-1">{item.track.title}</h5>
-              <p class="text-center px-1">{item.track.subtitle}</p>
+      {container.length > 0 &&
+        container.map((item) => (
+          <div className="mt-4 ml-6" key={item.track.key}>
+            <div className="w-[200px] h-[300px] rounded-lg float-left border-2 shadow-lg overflow-hidden ml-3">
+              <Link
+                to={`/detail/${item.track.key}`}
+                onClick={() => updateMusicData(item)}
+              >
+                <img
+                  src={item.track.share.image}
+                  alt={item.track.title}
+                  className="-mt-6 -mb-4"
+                />
+              </Link>
+              <h5 className="text-center px-1">{item.track.title}</h5>
+              <p className="text-center px-1">{item.track.subtitle}</p>
             </div>
           </div>
-        );
-      })}
+        ))}
     </div>
   );
 };
