@@ -86,19 +86,20 @@ const Home = () => {
       {container.length > 0 &&
         container.map((item) => (
           <div className="mt-4 ml-6" key={item.track.key}>
-            <div className="w-[200px] h-[300px] rounded-lg float-left border-2 shadow-lg overflow-hidden ml-3">
+            <div className="w-[200px] h-[300px] rounded-lg float-left border-2 shadow-lg overflow-hidden ml-3 transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-105 duration-300">
               <Link
                 to={`/detail/${item.track.key}`}
                 onClick={() => updateMusicData(item)}
+                className=""
               >
                 <img
                   src={item.track.share.image}
                   alt={item.track.title}
-                  className="-mt-6 -mb-4"
+                  className="-mt-6"
                 />
+                <h5 className="text-center px-1 text-black mt-2">{item.track.title}</h5>
+                <p className="text-center px-1 text-black">{item.track.subtitle}</p>
               </Link>
-              <h5 className="text-center px-1">{item.track.title}</h5>
-              <p className="text-center px-1">{item.track.subtitle}</p>
             </div>
           </div>
         ))}
