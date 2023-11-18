@@ -60,7 +60,7 @@ const Home = () => {
 
   return (
     <div>
-      <h2 class="font-bold text-center mt-8">Music List Kelompok 18</h2>
+      <h1 class="font-bold text-center mt-8">Music List Kelompok 18</h1>
       <form onSubmit={onSubmitHandler}>
         <div class="ml-10 mt-8">
           <h5 class="font-bold">Cari Judul Lagu</h5>
