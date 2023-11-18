@@ -58,8 +58,8 @@ const Profile = () => {
         <div class="mt-2 mx-auto text-center text-lg">
           <strong>Email:</strong> {email}
         </div>
-        <Link to={"/"} class="hover:hover:font-bold ml-1/2 w-[400px] h-[50px] bg-slate-400">
-          <div class="p-3 ml-[520px] border-2 text-white text-center bg-black w-[400px] h-[55px] rounded-lg mt-3">
+        <Link to={"/"} class="hover:hover:font-bold ml-1/2 w-[300px] h-[50px] bg-slate-400">
+          <div class="p-2 ml-[570px] border-2 text-white text-center bg-black w-[300px] h-[45px] rounded-lg mt-3">
             Back
           </div>
         </Link>
