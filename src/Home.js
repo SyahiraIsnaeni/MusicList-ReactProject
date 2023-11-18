@@ -73,7 +73,7 @@ const Home = () => {
           />
           <button
             type="submit"
-            class="ml-5 border-2 p-1 rounded-md border-slate-600 text-sm hover:bg-black hover:text-white transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-105 duration-300"
+            class="ml-3 border-2 p-1 px-2 rounded-md bg-black text-white hover:border-slate-600 text-sm hover:bg-white hover:text-black transition ease-in-out delay-80 hover:-translate-y-1 hover:scale-105 duration-300"
           >
             Search
           </button>
@@ -82,7 +82,7 @@ const Home = () => {
 
       {container.map((item) => {
         return (
-          <div class="mt-3 ml-6" key={item.track.id}>
+          <div class="mt-4 ml-6" key={item.track.id}>
             <div class="w-[200px] h-[300px] rounded-lg float-left border-2 shadow-lg overflow-hidden ml-3">
               <img src={item.track.share.image} alt={item.track.title}></img>
               <h5 class="text-center px-1">{item.track.title}</h5>
