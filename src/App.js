@@ -6,6 +6,7 @@ import Register from './Register';
 import { ToastContainer } from 'react-toastify';
 import Appheader from './Appheader';
 import EditUser from './Edituser';
+import Profile from './Profile';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='/' element={<Home />}></Route>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/register' element={<Register />}></Route>
+          <Route path='/profile' element={<Profile />}></Route>
           <Route path='/edit-user/:userId' element={<EditUser />} /> {/* Add this line for the EditUser route */}
         </Routes>
       </BrowserRouter>

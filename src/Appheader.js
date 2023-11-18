@@ -23,9 +23,10 @@ const Appheader = () => {
     return (
         <div>
             {showmenu &&
-                <div className="header" style={{ background: '#D0AAD1' }}>
-                    <Link to={'/login'} style={{ float: 'right'}}>Logout</Link>
-                    <span style={{ float: 'left'}}>Welcome <b>{displayusername}</b></span>
+                <div className="header" style={{ background: 'black' }}>
+                    <Link to={'/login'} style={{ float: 'right', marginRight: '28px'}} class="hover:font-bold">Logout</Link>
+                    <Link to={'/profile'} style={{ float: 'right', marginRight: '50px'}} class="hover:hover:font-bold">Profile</Link>
+                    <span style={{ float: 'left', marginLeft: '28px'}} class="font-medium text-lg">Welcome <b>{displayusername}</b></span>
                 </div>
             }
         </div>

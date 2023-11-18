@@ -2,44 +2,43 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [query, setQuery] = useState("");
-
+  const [query, setQuery] = useState("bite me"); // Set default query
   const [container, setContainer] = useState([]);
-
   const [endPoint, setEndPoint] = useState("");
+  const navigate = useNavigate();
+
+  const fetchData = async () => {
+    const url = `https://shazam.p.rapidapi.com/search?term=${query}`;
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "7fbf449755mshda9343543ee4455p1444bejsn69b45c8405f2",
+        "X-RapidAPI-Host": "shazam.p.rapidapi.com",
+      },
+    };
+
+    try {
+      const response = await fetch(url, options);
+      const result = await response.text();
+
+      // Ubah teks respons menjadi objek JSON
+      const data = JSON.parse(result);
+
+      // Cek apakah properti "tracks" ada dalam objek data
+      if (data.tracks) {
+        // Ambil data yang Anda inginkan dari properti "hits" di dalam "tracks"
+        const hits = data.tracks.hits;
+        setContainer(hits);
+        console.log(hits);
+      } else {
+        console.error('Properti "tracks" tidak ditemukan dalam respons API.');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const url = `https://shazam.p.rapidapi.com/search?term=${query}`;
-      const options = {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "7fbf449755mshda9343543ee4455p1444bejsn69b45c8405f2",
-          "X-RapidAPI-Host": "shazam.p.rapidapi.com",
-        },
-      };
-
-      try {
-        const response = await fetch(url, options);
-        const result = await response.text();
-
-        // Ubah teks respons menjadi objek JSON
-        const data = JSON.parse(result);
-
-        // Cek apakah properti "tracks" ada dalam objek data
-        if (data.tracks) {
-          // Ambil data yang Anda inginkan dari properti "hits" di dalam "tracks"
-          const hits = data.tracks.hits;
-          setContainer(hits);
-          console.log(hits);
-        } else {
-          console.error('Properti "tracks" tidak ditemukan dalam respons API.');
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
     if (endPoint) {
       fetchData();
     }
@@ -53,6 +52,11 @@ const Home = () => {
   const onChangeHandler = (e) => {
     setQuery(e.target.value);
   };
+
+  // Tambahkan useEffect untuk memanggil fetchData saat komponen dimuat pertama kali
+  useEffect(() => {
+    fetchData();
+  }, []); // Dependensi kosong agar hanya dijalankan sekali saat komponen dimuat
 
   return (
     <div>
@@ -78,9 +82,9 @@ const Home = () => {
 
       {container.map((item) => {
         return (
-          <div class="mt-3 ml-6">
+          <div class="mt-3 ml-6" key={item.track.id}>
             <div class="w-[200px] h-[300px] rounded-lg float-left border-2 shadow-lg overflow-hidden ml-3">
-              <img src={item.track.share.image}></img>
+              <img src={item.track.share.image} alt={item.track.title}></img>
               <h5 class="text-center px-1">{item.track.title}</h5>
               <p class="text-center px-1">{item.track.subtitle}</p>
             </div>
