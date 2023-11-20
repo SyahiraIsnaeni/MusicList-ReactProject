@@ -1,65 +1,31 @@
+// src/pages/Home.js
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useMusicContext } from './MusicContext';
+import { useMusicContext } from '../services/MusicContext';
+import ApiService from '../services/ApiService';
 
 const Home = () => {
   const { updateMusicData } = useMusicContext();
   const [query, setQuery] = useState('bite me'); // Set default query
   const [container, setContainer] = useState([]);
-  const [endPoint, setEndPoint] = useState('');
   const navigate = useNavigate();
 
-  const fetchData = async () => {
-    const url = `https://shazam.p.rapidapi.com/search?term=${query}`;
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': '7fbf449755mshda9343543ee4455p1444bejsn69b45c8405f2',
-        'X-RapidAPI-Host': 'shazam.p.rapidapi.com',
-      },
-    };
-
-    try {
-      const response = await fetch(url, options);
-      const result = await response.text();
-
-      // Ubah teks respons menjadi objek JSON
-      const data = JSON.parse(result);
-
-      // Cek apakah properti "tracks" ada dalam objek data
-      if (data.tracks) {
-        // Ambil data yang Anda inginkan dari properti "hits" di dalam "tracks"
-        const hits = data.tracks.hits;
-        setContainer(hits);
-        updateMusicData(hits);
-        console.log(hits);
-      } else {
-        console.error('Properti "tracks" tidak ditemukan dalam respons API.');
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  const fetchData = () => {
+    ApiService.fetchData(query, setContainer, updateMusicData);
   };
 
   useEffect(() => {
-    if (endPoint) {
-      fetchData();
-    }
-  }, [endPoint]);
+    fetchData();
+  }, [query]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    setEndPoint(query);
+    fetchData();
   };
 
   const onChangeHandler = (e) => {
     setQuery(e.target.value);
   };
-
-  // Tambahkan useEffect untuk memanggil fetchData saat komponen dimuat pertama kali
-  useEffect(() => {
-    fetchData();
-  }, []); // Dependensi kosong agar hanya dijalankan sekali saat komponen dimuat
 
   return (
     <div>

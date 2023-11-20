@@ -1,18 +1,19 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from './Home';
-import Login from './Login';
-import Register from './Register';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import { ToastContainer } from 'react-toastify';
-import Appheader from './Appheader';
-import EditUser from './Edituser';
-import Profile from './Profile';
-import Detail from './Detail';
+import Appheader from './components/Appheader';
+import Profile from './pages/Profile';
+import Detail from './pages/Detail';
+import { MusicProvider } from './services/MusicContext';
 
 function App() {
   return (
     <div className="App">
       <ToastContainer theme='colored' position='top-center'></ToastContainer>
+      <MusicProvider>
       <BrowserRouter>
         <Appheader></Appheader>
         <Routes>
@@ -23,6 +24,7 @@ function App() {
           <Route path="/detail/:id" element={<Detail />} />
         </Routes>
       </BrowserRouter>
+      </MusicProvider>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { useMusicContext } from "./MusicContext";
+import { useMusicContext } from "../services/MusicContext";
 
 const Detail = () => {
   const { musicData } = useMusicContext();
@@ -35,7 +35,7 @@ const Detail = () => {
         to={"/"}
         class="hover:hover:font-bold ml-1/2 w-[300px] h-[40px] bg-slate-400"
       >
-        <div class="p-2 -mt-4 ml-[555px] border-2 text-white text-center bg-black w-[300px] h-[45px] rounded-lg">
+        <div class="p-2 -mt-4 ml-[490px] border-2 text-white text-center bg-black w-[300px] h-[45px] rounded-lg">
           Back
         </div>
       </Link>
